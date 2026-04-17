@@ -3,22 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой минималистичный проект</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <title>Установка KVN на macOS | Инструкция</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #f8fafc;
+            --accent: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 4rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        section:hover {
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+        }
+
+        h2 span {
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--text);
+            border-bottom: 2px solid var(--bg);
+            padding-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            margin: 1rem 0;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        .image-caption {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        code {
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.9em;
+            color: #e11d48;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        .important {
+            background-color: #fffbeb;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .important h4 {
+            color: #92400e;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .important h4::before {
+            content: "⚠️";
+            margin-right: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-light);
+            margin-top: 4rem;
+            font-size: 0.875rem;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border);
+            margin: 2rem 0;
+        }
+
+        .tips-section h2 {
+            color: var(--text);
+        }
+        .tips-section h2 span {
+            display: none;
+        }
+    </style>
+</head>
 <body>
+
     <header>
-        <h1>Привет, я Rushan</h1>
+        <div class="container">
+            <h1>Установка и настройка KVN</h1>
+            <p>Пошаговое руководство по настройке VPN-клиента на macOS для обхода гео блокировок.</p>
+        </div>
     </header>
 
-    <main>
-        <section>
-            <h2>Мои проекты</h2>
-            <p>Здесь будет список моих работ на Java и C.</p>
+    <div class="container">
+        <!-- Step 1 -->
+        <section id="step1">
+            <h2><span>1</span> Шаг 1: Скачивание файлов</h2>
+            <p>Данное руководство поможет вам установить и настроить VPN-клиент KVN локально на вашем компьютере, начиная от скачивания и заканчивая настройкой браузера.</p>
+            <ol>
+                <li>Перейдите по ссылке на Google Drive:</li>
+            </ol>
+            <a href="https://drive.google.com/drive/folders/1TeZsVlXY0kWnJVSoVWpEF7k5mTAZmqma?usp=drive_link" class="btn" target="_blank">Скачать KVN для macOS</a>
+            <p>2. Скачайте доступный файл (обычно это <code>KVN-1.0.dmg</code> или архив <code>macOS-Intel-App(1).zip</code>).</p>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026</p>
-    </footer>
+        <!-- Step 2 -->
+        <section id="step2">
+            <h2><span>2</span> Шаг 2: Подготовка и распаковка</h2>
+            <p>Если вы скачали архив <code>.zip</code>:</p>
+            <ol>
+                <li>Нажмите на него дважды, чтобы распаковать.</li>
+                <li>Внутри вы найдете образ диска <code>KVN-1.0.dmg</code>.</li>
+            </ol>
+            <img src="photo_2026-04-17_15-28-46.jpg" alt="Подготовка установочного файла">
+            <p class="image-caption">Подготовка установочного файла</p>
+        </section>
+
+        <!-- Step 3 -->
+        <section id="step3">
+            <h2><span>3</span> Шаг 3: Установка на Рабочий стол</h2>
+            <ol>
+                <li>Откройте файл <strong>KVN-1.0.dmg</strong>.</li>
+                <li>В появившемся окне перетащите иконку <strong>KVN</strong> прямо на ваш <strong>Desktop</strong> (Рабочий стол). <strong>Не нужно пытаться перетащить его в Applications!</strong></li>
+                <li>Дождитесь завершения копирования и закройте окно установщика.</li>
+            </ol>
+            <img src="photo_2026-04-17_14-31-46.jpg" alt="Установка приложения">
+            <p class="image-caption">Установка приложения</p>
+        </section>
+
+        <!-- Step 4 -->
+        <section id="step4">
+            <h2><span>4</span> Шаг 4: Снятие карантина (Gatekeeper)</h2>
+            <p>Поскольку приложение загружено из интернета, macOS может заблокировать его запуск. Чтобы это исправить:</p>
+            <ol>
+                <li>Откройте приложение <strong>Terminal</strong> (Терминал).</li>
+                <li>Выполните команду:</li>
+            </ol>
+            <pre><code>xattr -cr ~/Desktop/KVN.app</code></pre>
+            <p><em>(Эту процедуру снятия карантина нужно выполнить только один раз при первом запуске. Команда выполняется мгновенно и не требует подтверждения).</em></p>
+        </section>
+
+        <!-- Step 5 -->
+        <section id="step5">
+            <h2><span>5</span> Шаг 5: Где взять файл конфигурации?</h2>
+            <p>Для работы программы требуется файл настроек. <strong>Один файл конфигурации уже лежит в папке по ссылке скачивания утилиты, но он может оказаться не рабочим.</strong> Поэтому лучше получить свежий файл бесплатно через Telegram-бота:</p>
+            <ol>
+                <li>Перейдите в бот <a href="https://t.me/warp_generator_bot" target="_blank">@warp_generator_bot</a>.</li>
+                <li>Сгенерируйте новый конфиг, выбрав следующие параметры:
+                    <ul>
+                        <li><strong>Страна</strong>: РФ (стоит по умолчанию).</li>
+                        <li><strong>DNS</strong>: Xbox DNS (нужен для обхода гео-блокировок: ChatGPT, Grok, Spotify и др.).</li>
+                        <li><strong>Формат конфигурации</strong>: Amnezia WG.</li>
+                    </ul>
+                </li>
+                <li>Бот пришлет вам файл с расширением <code>.conf</code>. Сохраните его на компьютер.</li>
+            </ol>
+            <div class="important">
+                <h4>Важно</h4>
+                <p>Если VPN через какое-то время перестанет работать, просто сгенерируйте в боте <strong>новую конфигурацию</strong> и добавьте её в программу по инструкции ниже — это сразу восстановит работу.</p>
+            </div>
+        </section>
+
+        <!-- Step 6 -->
+        <section id="step6">
+            <h2><span>6</span> Шаг 6: Запуск и добавление конфигурации</h2>
+            <ol>
+                <li>Запустите <strong>KVN</strong> с Рабочего стола. В верхней панели меню появится иконка.</li>
+                <li>Нажмите на иконку и выберите <strong>Add Config...</strong> (Добавить конфигурацию).</li>
+            </ol>
+            <img src="photo_2026-04-17_14-31-50.jpg" alt="Меню приложения">
+            <p class="image-caption">Меню приложения</p>
+            
+            <ol start="3">
+                <li>Выберите скачанный вами файл конфигурации (<code>.conf</code>) и нажмите <strong>Open</strong>.</li>
+            </ol>
+            <img src="photo_2026-04-17_14-33-18.jpg" alt="Выбор файла конфигурации">
+            <p class="image-caption">Выбор файла конфигурации</p>
+        </section>
+
+        <!-- Step 7 -->
+        <section id="step7">
+            <h2><span>7</span> Шаг 7: Подключение</h2>
+            <ol>
+                <li>Нажмите на иконку <strong>KVN</strong> в верхнем меню.</li>
+                <li>Нажмите <strong>Connect VPN</strong>. Статус сменится на <strong>Connected</strong>.</li>
+            </ol>
+            <p><em>*После этого утилита поднимет локальный прокси на адресе <code>127.0.0.1:1080</code>.</em></p>
+            <img src="photo_2026-04-17_14-34-28.jpg" alt="Статус подключения">
+            <p class="image-caption">Статус подключения</p>
+        </section>
+
+        <hr>
+
+        <!-- Step 8 -->
+        <section id="step8">
+            <h2><span>8</span> Шаг 8: Настройка браузера (FoxyProxy)</h2>
+            <p>Чтобы браузер начал использовать поднятый VPN-канал, установите расширение <strong>FoxyProxy</strong>.</p>
+            
+            <h3>1. Установка расширения:</h3>
+            <ul>
+                <li><strong>Для Chrome / Edge / Яндекс:</strong> <a href="https://chromewebstore.google.com/detail/foxyproxy/gcknhkkoolaabfmlnjonogaaifnjlfnp?hl=ru" target="_blank">FoxyProxy в Chrome Web Store</a></li>
+                <li><strong>Для Firefox:</strong> <a href="https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/" target="_blank">FoxyProxy в Add-ons Mozilla</a></li>
+            </ul>
+
+            <h3>2. Настройка подключения:</h3>
+            <ol>
+                <li>Нажмите на иконку <strong>FoxyProxy</strong> в панели расширений браузера и выберите <strong>Options</strong> (Настройки).</li>
+            </ol>
+            <img src="photo_2026-04-17_14-59-55.jpg" alt="Меню FoxyProxy">
+            <p class="image-caption">Меню FoxyProxy</p>
+            <img src="photo_2026-04-17_14-52-33.jpg" alt="Открыть настройки FoxyProxy">
+            <p class="image-caption">Открыть настройки FoxyProxy</p>
+
+            <ol start="2">
+                <li>Нажмите кнопку <strong>Add</strong> (Добавить новый прокси).</li>
+            </ol>
+            <img src="photo_2026-04-17_14-52-37.jpg" alt="Добавление прокси">
+            <p class="image-caption">Добавление прокси</p>
+
+            <ol start="3">
+                <li>Введите следующие данные:
+                    <ul>
+                        <li><strong>Proxy Type</strong>: Выберите <strong>SOCKS5</strong> из списка.</li>
+                        <li><strong>Proxy IP address or DNS name</strong>: <code>127.0.0.1</code></li>
+                        <li><strong>Port</strong>: <code>1080</code></li>
+                    </ul>
+                </li>
+            </ol>
+            <img src="photo_2026-04-17_14-52-45.jpg" alt="Выбор типа SOCKS5">
+            <p class="image-caption">Выбор типа SOCKS5</p>
+            <img src="photo_2026-04-17_15-03-19.jpg" alt="Заполненные настройки">
+            <p class="image-caption">Заполненные настройки</p>
+
+            <ol start="4">
+                <li>Нажмите <strong>Save</strong> (Сохранить).</li>
+                <li>Теперь снова нажмите на иконку расширения в браузере и выберите созданный профиль <code>127.0.0.1:1080</code>.</li>
+            </ol>
+            <img src="photo_2026-04-17_14-52-51.jpg" alt="Активация прокси">
+            <p class="image-caption">Активация прокси</p>
+            
+            <p><strong>Приятного использования!</strong></p>
+        </section>
+
+        <section id="tips" class="tips-section">
+            <h2>Советы по использованию</h2>
+            <ul>
+                <li><strong>Auto Connect</strong>: Если эта опция активна (отмечена галочкой), то при каждом запуске утилиты KVN соединение с VPN будет устанавливаться автоматически. Это удобно, если вы хотите, чтобы прокси на <code>127.0.0.1:1080</code> поднимался сразу после старта программы без лишних кликов.</li>
+                <li><strong>Синхронизация и сохранность настроек</strong>: 
+                    <ol>
+                        <li>На школьных iMac расширения могут удаляться после выключения компьютера. Можно включить <strong>синхронизацию расширений</strong> в настройках браузера.</li>
+                        <li>Сами настройки прокси (IP и порт) внутри FoxyProxy могут не восстановиться автоматически. Рекомендуется один раз нажать кнопку <strong>Export</strong> во вкладке настроек FoxyProxy и сохранить файл с настройками на компьютере. Если настройки пропадут, вы сможете вернуть их за секунду через <strong>Import</strong>.</li>
+                    </ol>
+                </li>
+                <li><strong>Отключение VPN</strong>: Если вам нужно временно отключить VPN, рекомендуется сначала выключить прокси в самом расширении <strong>FoxyProxy</strong> (выбрать "Turn Off FoxyProxy"). Если вы просто закроете программу KVN, не отключив расширение, браузер продолжит искать прокси по адресу <code>127.0.0.1:1080</code>, и доступ к сайтам пропадет до тех пор, пока вы не отключите расширение вручную.</li>
+                <li><strong>Exit</strong>: Используйте эту кнопку для полного закрытия приложения.</li>
+            </ul>
+        </section>
+
+        <div class="footer">
+            <p>&copy; 2026 Инструкция по установке KVN. Сделано для удобства пользователей macOS.</p>
+        </div>
+    </div>
 </body>
 </html>
