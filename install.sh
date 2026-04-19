@@ -28,6 +28,8 @@ rm "$TMP_ZIP" "$DMG_PATH"
 # Вывод KVN с карантина 
 xattr -cr ~/Desktop/KVN.app
 
+#Вызов окна с результатом
+osascript -e 'display notification "KVN установлен!" with title "Успех"'
 
 
 
