@@ -1,29 +1,39 @@
 #!/bin/bash
 
-# 1. ID расширения из твоей ссылки
-EXT_ID="gcknhkkoolaabfmlnjonogaaifnjlfnp"
+# Константы
+readonly APP_URL ="https://github.com/shepherl/kvnfaq/releases/download/1.0/macOS-Intel-App.zip"
+readonly TMP_ZIP ="/tmp/KVN_App.zip"
 
-# 2. Формируем актуальную прямую ссылку
-# Мы используем универсальный шаблон Google API
-INSTALL_URL="https://clients2.google.com/service/update2/crx?response=redirect&prodchannel=stable&acceptformat=crx2,crx3&x=id%3D${EXT_ID}%26installsource%3Dondemand%26uc"
+# Скачивание и распаковка ZIP
+curl -L "$APP_URL" -o "$TMP_ZIP"
 
-# 3. Визуальное уведомление
-osascript -e 'display notification "Подготовка к установке расширения..." with title "KVN Installer" sound name "Glass"'
+# Распаковываем ZIP во временную папку, чтобы найти там DMG
+unzip -qo "$TMP_ZIP" -d /tmp/ 
 
-echo "--- Проверка готовности ---"
+# Ищем DMG файл (даже если имя чуть отличается)
+DMG_PATH=$(find /tmp -maxdepth 1 -name "KVN-1.0.dmg" | head -n 1) 
 
-# 4. Диалог с пользователем
-ANSWER=$(osascript -e 'display dialog "Установить расширение FoxyProxy в Google Chrome?" buttons {"Отмена", "Установить"} default button "Установить" with title "Настройка прокси"' -e 'button returned of result')
+# Монтируем DMG и получаем путь, куда он примонтировался
+MOUNT_POINT=$(hdiutil attach -nobrowse -noautoopen "$DMG_PATH" | grep -o '/Volumes/.*' | head -n 1) 
 
-if [ "$ANSWER" = "Установить" ]; then
-    echo "🌐 Открываю прямую ссылку в Chrome..."
-    
-    # Пытаемся открыть в Хроме. Если его нет, открываем в браузере по умолчанию (но установка сработает только в Chromium)
-    open -a "Google Chrome" "$INSTALL_URL" || open "$INSTALL_URL"
-    
-    # 5. Подсказка, что делать дальше
-    sleep 1
-    osascript -e 'display dialog "В Chrome появилось окно подтверждения. Нажми «Добавить расширение» (Add extension), чтобы закончить." buttons {"Ок"} default button "Ок"'
-else
-    echo "❌ Установка отменена пользователем."
+# Копируем .app из DMG на Desktop
+cp -R "$MOUNT_POINT"/*.app ~/Desktop/
+
+#Размонтирование DMG
+hdiutil detach "$MOUNT_POINT" -quiet
+
+# Очистка временных файлов
+rm "$TMP_ZIP" "$DMG_PATH"
+
+# Вывод KVN с карантина 
+xattr -cr ~/Desktop/KVN.app
+
+
+
+
+
+
+
+
+
 fi
