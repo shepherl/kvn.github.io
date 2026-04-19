@@ -29,8 +29,7 @@ rm "$TMP_ZIP" "$DMG_PATH"
 xattr -cr ~/Desktop/KVN.app
 
 #Вызов окна с результатом
-# Используем прямой путь к иконке без обращения к Finder
-osascript -e 'display dialog "Установка KVN успешно завершена!" with title "Установщик" buttons {"ОК"} default button "ОК" with icon POSIX file "'"$HOME"'/Desktop/KVN.app"'
+osascript -e 'display dialog "Установка KVN успешно завершена!" with title "Установщик" buttons {"ОК"} default button "ОК" with icon note'
 
 
 
