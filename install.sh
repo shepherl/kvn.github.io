@@ -29,7 +29,8 @@ rm "$TMP_ZIP" "$DMG_PATH"
 xattr -cr ~/Desktop/KVN.app
 
 #Вызов окна с результатом
-osascript -e 'display dialog "Установка KVN успешно завершена!" with title "Установщик" buttons {"ОК"} default button "ОК" with icon note'
+APP_ICON="alias (path to desktop folder as string & \"KVN.app\")" # Добавление кастомной иконки в свое приложение 
+osascript -e 'display dialog "Установка KVN успешно завершена!" with title "Установщик" buttons {"ОК"} default button "ОК" with icon '$APP_ICON''
 
 
 
