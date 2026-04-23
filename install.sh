@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Константы
-readonly APP_URL="https://github.com/shepherl/kvnfaq/releases/download/1.0/macOS-Intel-App.zip"
+readonly APP_URL="https://github.com/shepherl/kvnfaq/releases/download/1.1/macOS-Intel-App.zip"
 readonly TMP_ZIP="/tmp/KVN_App.zip"
 
 if [[ $(hostname) == *.kzn.21-school.ru ]]; then
